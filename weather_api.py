@@ -1,7 +1,6 @@
 import requests
 from datetime import datetime
 
-# Словарь перевода значений направления ветра
 DIRECTION_TRANSFORM = {
     'n': 'северное',
     'nne': 'северо - северо - восточное',
@@ -21,10 +20,12 @@ DIRECTION_TRANSFORM = {
     'nnw': 'северо - северо - западное',
     'c': 'штиль',
 }
+
+
 def current_weather(lat, lon):
-    token = "f64cbca9-a229-491c-afa5-5c234f1fd212"
-    url = "https://api.weather.yandex.ru/v2/forecast"
-    headers = {"X-Yandex-API-Key": f"{token}", "q": f"{lat},{lon}"}
+    token = "94d1a809-5df9-45cb-822e-23299cba0751"
+    url = f"https://api.weather.yandex.ru/v2/forecast?lat={lat}&lon={lon}"
+    headers = {"X-Yandex-API-Key": f"{token}"}
     response = requests.get(url, headers=headers).json()
     s = f"Город: {response['geo_object']['locality']['name']}\n" \
         f"Время: {datetime.fromtimestamp(response['fact']['uptime'])}\n" \
@@ -38,4 +39,4 @@ def current_weather(lat, lon):
     return s
 
 if __name__ == "__main__":
- print(current_weather(59.93, 30.31))  # Проверка работы для координат Санкт-Петербурга
+    print(current_weather(59.93, 30.31))
